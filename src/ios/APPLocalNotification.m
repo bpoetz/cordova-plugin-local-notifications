@@ -579,7 +579,15 @@
 
     for (UILocalNotification* notification in notifications)
     {
-        NSString* notId = [notification.userInfo objectForKey:@"id"];
+        NSString* notId;
+        if([[notification.userInfo objectForKey:@"id"] isKindOfClass:[NSString class]]){
+            notId = [notification.userInfo objectForKey:@"id"];
+        }
+        else {
+            notId = [[notification.userInfo objectForKey:@"id"] stringValue];
+        }
+        // NSString* notId = [[notification.userInfo objectForKey:@"id"] stringValue];
+        // NSString* notId = [NSString stringWithFormat:@"%@", [notification.userInfo objectForKey:@"id"]];
 
         if ([notId isEqualToString:id]) {
             return notification;
